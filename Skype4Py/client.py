@@ -212,7 +212,7 @@ class Client(object):
           Page : str
             Page name to open.
 
-        :see: See https://developer.skype.com/Docs/ApiDoc/OPEN_OPTIONS for known Page values.
+        :see: See http://developer.skype.com/public-api-reference#COMMAND_OPEN_OPTIONS for known Page values.
         """
         self.OpenDialog('OPTIONS', Page)
 

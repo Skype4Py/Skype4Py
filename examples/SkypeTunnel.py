@@ -12,7 +12,7 @@ All rights reserved
 This script creates a TCP/UDP tunnel over Skype P2P network.
 
 Uses Skype4Py package:
-  https://developer.skype.com/wiki/Skype4Py
+  https://github.com/awahlig/skype4py
 
 Usage:
 

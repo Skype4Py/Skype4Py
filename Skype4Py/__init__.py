@@ -85,12 +85,12 @@ Note on the naming convention
    a ``SkypeApiError`` name, the second one uses ``SkypeAPIError``. Other names including properties,
    methods, arguments, variables and module names use lowercase letters with underscores.
 
-.. _Skype4COM: https://developer.skype.com/Docs/Skype4COM
+.. _Skype4COM: http://developer.skype.com/accessories/skype4com
 .. |copy| unicode:: U+000A9
 
 :author: Arkadiusz Wahlig <arkadiusz.wahlig@gmail.com>
 :requires: Python 2.4 up until but not including 3.0.
-:see: The Skype4Py website: https://developer.skype.com/wiki/Skype4Py
+:see: The Skype4Py website: https://github.com/awahlig/skype4py
 :license: BSD License (see the accompanying LICENSE file for more information)
 :copyright: |copy| 2007-2009 Arkadiusz Wahlig
 """

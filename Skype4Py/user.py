@@ -368,7 +368,7 @@ class User(Cached):
 
     :type: unicode
 
-    :see: https://developer.skype.com/Docs/ApiDoc/SET_PROFILE_RICH_MOOD_TEXT
+    :see: http://developer.skype.com/public-api-reference#COMMAND_SET_PROFILE_RICH_MOOD_TEXT
     """)
 
     def _GetSex(self):
