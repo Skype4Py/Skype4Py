@@ -176,7 +176,9 @@ class SkypeAPI(SkypeAPIBase):
             import os
             if os.fork() == 0: # we're child
                 os.setsid()
-                os.execlp('skype')
+                # a second empy argument should be added or an error would be raised by 
+                # python-dbus starting method
+                os.execlp('skype','')
 
     def shutdown(self):
         import os
