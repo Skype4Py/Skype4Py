@@ -55,3 +55,4 @@ include/
 lib/
 local/
 virtualenv.py
+MANIFEST

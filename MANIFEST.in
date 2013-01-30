@@ -1,8 +1,4 @@
-include README
-include ChangeLog
-include Skype4Py/LICENSE
-include unittests/*.py
-include examples/app2app_*.py
-include examples/callfriend.py
-include examples/search.py
-include examples/sms.py
+recursive-include Skype4Py *
+recursive-include doc *
+include *
+global-exclude *.pyc
