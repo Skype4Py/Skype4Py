@@ -188,6 +188,7 @@ Example::
 
     virtualenv-2.7 venv  # Create venv
     source venv/bin/activate
+    # Bumb version in setup.py
     python setup.py develop  # Install Skype4Py in development mode
     pip install collective.checkdocs
     pthon setup.py checkdocs # Check .rst syntax
