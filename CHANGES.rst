@@ -33,7 +33,7 @@
 
 * RunMainLoop option for DBus transport and Mac OS X (darwin) platform
 
-  The old DBus transport options (the options passed to Skype object constructor)
+1.0.33 (2013-01-30)
   were removed and replaced by a single "RunMainLoop" option. The same option has
   been added to Mac OS X platform transport.
 
