@@ -368,7 +368,7 @@ class User(Cached):
 
     :type: unicode
 
-    :see: http://developer.skype.com/public-api-reference#COMMAND_SET_PROFILE_RICH_MOOD_TEXT
+    :see: https://developer.skype.com/Docs/ApiDoc/SET_PROFILE_RICH_MOOD_TEXT
     """)
 
     def _GetSex(self):
@@ -403,8 +403,6 @@ class User(Cached):
 
 
 class UserCollection(CachedCollection):
-    """Container for `User` objects.
-    """
     _CachedType = User
 
 
@@ -536,6 +534,4 @@ class Group(Cached):
 
 
 class GroupCollection(CachedCollection):
-    """Container for `Group` objects.
-    """
     _CachedType = Group

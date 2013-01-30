@@ -297,6 +297,17 @@ class SkypeAPI(SkypeAPIBase):
         self.center = CFDistributedNotificationCenter()
         self.is_available = False
         self.client_id = -1
+        self.thread_started = False
+
+    def start(self):
+        """
+        Start the thread associated with this API object.
+        Ensure that the call is made no more than once,
+        to avoid raising a RuntimeError.
+        """
+        if not self.thread_started:
+            super(SkypeAPI, self).start()
+            self.thread_started = True
 
     def run(self):
         self.logger.info('thread started')

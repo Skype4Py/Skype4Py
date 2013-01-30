@@ -510,25 +510,20 @@ class EventHandlingBase(object):
 class Cached(object):
     """Base class for all cached objects.
 
-    Every object has an owning object and a unique handle. Owning object is where the
-    cache is maintained, handle identifies an object of given type. The cache
-    distinguishes between objects having the same handles but being instances of
-    different classes.
+    Every object has an owning object a handle. Owning object is where the cache is
+    maintained, handle identifies an object of given type.
 
     Thanks to the caching, trying to create two objects with the same owner and handle
     yields exactly the same object. The cache itself is based on weak references so
-    objects with no references left are automatically removed from the cache and memory.
+    not referenced objects are automatically removed from the cache.
 
-    Because the ``__init__`` constructor is always called, no matter if the object is
-    being created or obtained from the cache, it is recommended to use the `_Init`
-    method instead. This method is called only for the newly created objects.
-    
-    Since the cached objects are by definition fully defined by the owner and handle,
-    the constructor does not take any additional arguments.
+    Because the ``__init__`` method will be called no matter if the object already
+    existed or not, it is recommended to use the `_Init` method instead.
     """
-    # Subclasses of Cached have to define a classmethod/callable called
-    #     cls._ValidateHandle(Handle)
-    # which is called by classmethod __new__ to validate the handle passed to it.
+    # Subclasses have to define a type/classmethod/staticmethod called
+    # _ValidateHandle(Handle)
+    # which is called by classmethod__new__ to validate the handle passed to
+    # it before it is stored in the instance.
 
     def __new__(cls, Owner, Handle):
         Handle = cls._ValidateHandle(Handle)
@@ -546,14 +541,15 @@ class Cached(object):
             raise TypeError('%s is not a cached objects owner' % repr(Owner))
             
     def _Init(self):
-        """Initializes the cached object. Receives no arguments.
-
-        This method should be overridden instead of ``__init__`` to prevent
-        reinitialization of cached objects.
+        """Initializes the cached object. Receives all the arguments passed to the
+        constructor The default implementation stores the ``Owner`` in
+        ``self._Owner`` and ``Handle`` in ``self._Handle``.
+        
+        This method should be used instead of ``__init__`` to prevent double
+        initialization.
         """
 
     def __copy__(self):
-        # Don't copy me please.
         return self
         
     def __repr__(self, *Attrs):
@@ -563,7 +559,7 @@ class Cached(object):
             ', '.join('%s=%s' % (name, repr(getattr(self, name))) for name in Attrs))
         
     def _MakeOwner(self):
-        """Prepares this object for use as an owner for other cached objects.
+        """Prepares the object for use as an owner for other cached objects.
         """
         self._CreateOwner(self)
 
@@ -579,14 +575,7 @@ class Cached(object):
 
 
 class CachedCollection(object):
-    """Base class for all cached collection objects.
-    
-    Cached collection objects are containers for cached objects. The base class
-    can contain any cached objects, the subclasses usualy limit this to some
-    specific cached objects type (objects of a subclass of Cached class).
-
-    CachedCollection provides a full Python list interface including iterator
-    method.
+    """
     """
     _CachedType = Cached
     
@@ -667,52 +656,52 @@ class CachedCollection(object):
         return obj
 
     def append(self, item):
-        """See list.append.
+        """
         """
         self._AssertItem(item)
         self._Handles.append(item._Handle)
 
     def count(self, item):
-        """See list.count.
+        """
         """
         self._AssertItem(item)
         return self._Handles.count(item._Handle)
 
     def index(self, item):
-        """See list.index.
+        """
         """
         self._AssertItem(item)
         return self._Handles.index(item._Handle)
 
     def extend(self, seq):
-        """See list.extend.
+        """
         """
         self.__iadd__(seq)
 
     def insert(self, index, item):
-        """See list.insert.
+        """
         """
         self._AssertItem(item)
         self._Handles.insert(index, item._Handle)
 
     def pop(self, pos=-1):
-        """See list.pop.
+        """
         """
         return self._CachedType(self._Owner, self._Handles.pop(pos))
 
     def remove(self, item):
-        """See list.remove.
+        """
         """
         self._AssertItem(item)
         self._Handles.remove(item._Handle)
 
     def reverse(self):
-        """See list.reverse.
+        """
         """
         self._Handles.reverse()
 
     def sort(self, cmp=None, key=None, reverse=False):
-        """See list.sort.
+        """
         """
         if key is None:
             wrapper = lambda x: self._CachedType(self._Owner, x)
@@ -721,26 +710,22 @@ class CachedCollection(object):
         self._Handles.sort(cmp, wrapper, reverse)
 
     def Add(self, Item):
-        """Adds an item to the end of the collection. Same as:
-        self.append(Item)
+        """
         """
         self.append(Item)
 
     def Remove(self, Index):
-        """Removes an item by index. Same as:
-        del self[Index]
+        """
         """
         del self[Index]
 
     def RemoveAll(self):
-        """Clears the collection. Same as:
-        del self[:]
+        """
         """
         del self[:]
 
     def Item(self, Index):
-        """Returns an item by index. Same as:
-        self[Index]
+        """
         """
         return self[Index]
 
@@ -748,6 +733,5 @@ class CachedCollection(object):
         return len(self)
 
     Count = property(_GetCount,
-    doc="""Number of items in the collection. Same as:
-    len(self)
+    doc="""
     """)

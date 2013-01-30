@@ -233,8 +233,6 @@ class SmsMessage(Cached):
 
 
 class SmsMessageCollection(CachedCollection):
-    """Container for `SmsMessage` objects.
-    """
     _CachedType = SmsMessage
 
 
@@ -287,8 +285,6 @@ class SmsChunk(Cached):
 
 
 class SmsChunkCollection(CachedCollection):
-    """Container for `SmsChunk` objects.
-    """
     _CachedType = SmsChunk
 
 
@@ -332,6 +328,4 @@ class SmsTarget(Cached):
 
 
 class SmsTargetCollection(CachedCollection):
-    """Container for `SmsTarget` objects.
-    """
     _CachedType = SmsTarget

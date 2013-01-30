@@ -400,7 +400,7 @@ class SkypeAPI(SkypeAPIBase):
         if not self.is_running():
             if os.fork() == 0: # we're the child
                 os.setsid()
-                os.execlp('skype')
+                os.execlp('skype', 'skype')
 
     def shutdown(self):
         from signal import SIGINT

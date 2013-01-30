@@ -41,7 +41,7 @@ class FileTransferTest(skype4pytest.TestCase):
     def testFileName(self):
         # Readable, Type: str
         self.api.enqueue('GET FILETRANSFER 1234 FILEPATH',
-                         'FILETRANSFER 1234 FILEPATH /spam/eggs'.replace('/', os.sep))
+                         'FILETRANSFER 1234 FILEPATH \\spam\\eggs')
         t = self.obj.FileName
         self.assertInstance(t, str)
         self.assertEqual(t, 'eggs')
@@ -50,10 +50,10 @@ class FileTransferTest(skype4pytest.TestCase):
     def testFilePath(self):
         # Readable, Type: str
         self.api.enqueue('GET FILETRANSFER 1234 FILEPATH',
-                         'FILETRANSFER 1234 FILEPATH /spam/eggs')
+                         'FILETRANSFER 1234 FILEPATH \\spam\\eggs')
         t = self.obj.FilePath
         self.assertInstance(t, str)
-        self.assertEqual(t, '/spam/eggs')
+        self.assertEqual(t, '\\spam\\eggs')
         self.failUnless(self.api.is_empty())
 
     def testFileSize(self):

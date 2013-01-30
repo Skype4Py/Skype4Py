@@ -42,6 +42,7 @@ if getattr(sys, 'skype4py_setup', False):
                 return lambda *args, **kwargs: None
 else:
     import dbus
+    import dbus.glib
     import dbus.service
     from dbus.mainloop.glib import DBusGMainLoop
     import gobject
@@ -67,17 +68,23 @@ class SkypeAPI(SkypeAPIBase):
         self.logger = logging.getLogger('Skype4Py.api.posix_dbus.SkypeAPI')
         SkypeAPIBase.__init__(self)
         self.run_main_loop = opts.pop('RunMainLoop', True)
+        system_bus = opts.pop('UseSystemBus', False)
         finalize_opts(opts)
         self.skype_in = self.skype_out = self.dbus_name_owner_watch = None
 
         # initialize glib multithreading support
         gobject.threads_init()
+        dbus.glib.threads_init()
 
         # dbus-python calls object.__init__() with arguments passed to SessionBus(),
         # this throws a warning on newer Python versions; here we suppress it
         warnings.simplefilter('ignore')
         try:
-            self.bus = dbus.SessionBus(mainloop=DBusGMainLoop())
+            if system_bus:
+                bus = dbus.SystemBus
+            else:
+                bus = dbus.SessionBus
+            self.bus = bus(mainloop=DBusGMainLoop())
         finally:
             warnings.simplefilter('default')
         
@@ -176,9 +183,7 @@ class SkypeAPI(SkypeAPIBase):
             import os
             if os.fork() == 0: # we're child
                 os.setsid()
-                # a second empy argument should be added or an error would be raised by 
-                # python-dbus starting method
-                os.execlp('skype','')
+                os.execlp('skype', 'skype')
 
     def shutdown(self):
         import os

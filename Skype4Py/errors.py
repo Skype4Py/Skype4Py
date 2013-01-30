@@ -37,7 +37,7 @@ class SkypeError(Exception):
     |     1 | (unicode) Error description. |
     +-------+------------------------------+
 
-    :see: http://developer.skype.com/public-api-reference#ERRORS for more information about
+    :see: https://developer.skype.com/Docs/ApiDoc/Error_codes for more information about
           Skype error codes. Additionally an **error code 0** can be raised by Skype4Py
           itself.
     """

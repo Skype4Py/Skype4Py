@@ -249,6 +249,4 @@ class ApplicationStream(Cached):
 
 
 class ApplicationStreamCollection(CachedCollection):
-    """Container for `ApplicationStream` objects.
-    """
     _CachedType = ApplicationStream
