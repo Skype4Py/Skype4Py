@@ -10,11 +10,17 @@ Distributed under the BSD License, see the
 accompanying LICENSE file for more information.
 """
 
-import sys, os
-from distutils.core import setup
+import os
+import sys
+
+from setuptools import setup
+from setuptools import find_packages
+
 from distutils.cmd import Command
 from distutils.command.install_lib import install_lib as old_install_lib
 
+
+VERSION = '1.0.33.0'
 
 # Change the current dir to where the setup.py is in case we're not there.
 path = os.path.split(sys.argv[0])[0]
@@ -24,10 +30,6 @@ if path:
 
 # So that the Skype4Py library may know that the setup is running.
 sys.skype4py_setup = True
-
-
-# Import Skype4Py version from the distribution package.
-from Skype4Py import __version__
 
 
 class install_lib(old_install_lib):
@@ -103,7 +105,7 @@ class build_doc(Command):
                 else:
                     sys.argv.append('--html')
                     sys.argv.append('--output=doc/html/')
-    
+
                 cli.cli()
             finally:
                 sys.argv[1:] = old_argv
@@ -114,7 +116,7 @@ class build_doc(Command):
                 doctype = 'pdf'
             else:
                 doctype = 'html'
-            name = 'Skype4Py-%s-%sdoc' % (__version__, doctype)
+            name = 'Skype4Py-%s-%sdoc' % (VERSION, doctype)
             z = zipfile.ZipFile(os.path.join('doc', '%s.zip' % name),
                     'w', zipfile.ZIP_DEFLATED)
             path = os.path.join('doc', doctype)
@@ -132,16 +134,16 @@ class build_doc(Command):
 commands = {'build_doc': build_doc,
             'install_lib': install_lib}
 
+desc = open("README.rst").read() + "\n" + open("CHANGES.rst").read()
 
 # start the distutils setup
 setup(name='Skype4Py',
-      version=__version__,
+      version=VERSION,
       description='Skype API wrapper for Python.',
-      long_description='Skype4Py is a high-level, platform independent Skype API\n' \
-                       'wrapper for Python with Skype4COM alike interface.',
+      long_description=desc,
       author='Arkadiusz Wahlig',
       author_email='arkadiusz.wahlig@gmail.com',
-      maintainer='Arkadiusz Wahlig',
+      maintainer='Mikko Ohtamaa',
       url='https://github.com/awahlig/skype4py',
       license='BSD License',
       platforms=['Windows', 'Linux', 'MacOS X'],

@@ -1,10 +1,17 @@
-What's new in Skype4Py 1.0.32.1 ?
+1.0.33.1
+=================================
+
+* Reworked release system and egg structure to follow the best practices [miohtama]
+
+* Merged all fixed done in a fork https://github.com/stigkj/Skype4Py [miohtama]
+
+1.0.32.1
 =================================
 
 * Project moved to github.
 
 
-What's new in Skype4Py 1.0.32.0 ?
+1.0.32.0
 =================================
 
 * Skype4Py.platform
@@ -27,20 +34,20 @@ What's new in Skype4Py 1.0.32.0 ?
   The old DBus transport options (the options passed to Skype object constructor)
   were removed and replaced by a single "RunMainLoop" option. The same option has
   been added to Mac OS X platform transport.
-  
+
   The default value (if option is not specified) is True which means that the
   transport will run an events loop on a separate thread to be able to receive
   and process messages from Skype (which result in Skype4Py event handlers being
   fired up).
-  
+
   This option has to be set to False if the events loop is going to be run somewhere
   else - the primary example are GUI applications which use the events loop to
   process messages from the user interfaces.
-  
+
   Trying to run two loops (one by the GUI framework and another one by Skype4Py)
   causes a lot of problems and unexpected behavior. When set to False, this option
   will tell Skype4Py to reuse the already running loop.
-  
+
   Note that if no other loop is running and this option is False, Skype4Py will
   remain to function (commands may be send to Skype and replies are returned)
   but it won't receive notifications from the client and their corresponding
@@ -79,8 +86,7 @@ What's new in Skype4Py 1.0.32.0 ?
 
   Skype4Py now returns unicode only when it is needed. For example, Skypenames
   are plain strings now while chat messages (their bodies) remain in unicode.
-  
+
   Also, if Skype4Py expects a unicode string from the user and a plain string
   is passed instead, it tries to decode it using the UTF-8 codec (as opposed
   to ASCII codec which was used previously).
-  
