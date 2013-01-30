@@ -195,6 +195,12 @@ Example::
     easy_install zest.releaser
     fullrelease
 
+Trademark notification
+========================
+
+“Skype™, associated trademarks and logos and the “S” logo are trademarks of Skype. ``Skype4Py``
+Python project is not affiliate of Skype or Microsoft corporation.
+
 
 
 
