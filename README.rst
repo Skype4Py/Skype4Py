@@ -184,3 +184,16 @@ Making a release
 
 `Use zest.releaser <http://opensourcehacker.com/2012/08/14/high-quality-automated-package-releases-for-python-with-zest-releaser/>`_
 
+Example::
+
+    virtualenv-2.7 venv  # Create venv
+    source venv/bin/activate
+    python setup.py develop  # Install Skype4Py in development mode
+    pip install collective.checkdocs
+    pthon setup.py checkdocs # Check .rst syntax
+    easy_install zest.releaser
+    fullrelease
+
+
+
+

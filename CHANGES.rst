@@ -1,27 +1,20 @@
-1.0.33.1
-=================================
+Changelog
+======================
 
-* Reworked release system and egg structure to follow the best practices [miohtama]
+1.0.34 (2013-01-30)
 
-* Merged all fixed done in a fork https://github.com/stigkj/Skype4Py [miohtama]
+- Reworked release system and egg structure to follow the best practices [miohtama]
 
-* Use standard pkg_distribution mechanism to expose the version numebr [miohtama]
+- Merged all fixed done in a fork https://github.com/stigkj/Skype4Py [miohtama]
 
-1.0.32.1
-=================================
+- Use standard pkg_distribution mechanism to expose the version numebr [miohtama]
 
-* Project moved to github.
-
-
-1.0.32.0
-=================================
-
-* Skype4Py.platform
+- Skype4Py.platform
 
   Easy detection of what platform code Skype4Py is using currently.
   May be one of 'posix', 'windows' or 'darwin'.
 
-* DBus is now a default Linux (posix) platform
+- DBus is now a default Linux (posix) platform
 
   Both DBus and X11 transports have been improved to work better in GUI environments.
   This revealed, that a special initialization code must be executed if the X11
@@ -31,32 +24,29 @@
   such old IPC techniques like X11 messaging, forced me to make it the default
   transport.
 
-* RunMainLoop option for DBus transport and Mac OS X (darwin) platform
+- RunMainLoop option for DBus transport and Mac OS X (darwin) platform
 
-1.0.34 (unreleased)
-                   
-
-- Nothing changed yet.
-
+- Fixed CHANGES syntax so that zest.releaser understands it [miohtama]
 
 1.0.33 (2013-01-30)
-  were removed and replaced by a single "RunMainLoop" option. The same option has
+
+* were removed and replaced by a single "RunMainLoop" option. The same option has
   been added to Mac OS X platform transport.
 
-  The default value (if option is not specified) is True which means that the
+* The default value (if option is not specified) is True which means that the
   transport will run an events loop on a separate thread to be able to receive
   and process messages from Skype (which result in Skype4Py event handlers being
   fired up).
 
-  This option has to be set to False if the events loop is going to be run somewhere
+* This option has to be set to False if the events loop is going to be run somewhere
   else - the primary example are GUI applications which use the events loop to
   process messages from the user interfaces.
 
-  Trying to run two loops (one by the GUI framework and another one by Skype4Py)
+* Trying to run two loops (one by the GUI framework and another one by Skype4Py)
   causes a lot of problems and unexpected behavior. When set to False, this option
   will tell Skype4Py to reuse the already running loop.
 
-  Note that if no other loop is running and this option is False, Skype4Py will
+* Note that if no other loop is running and this option is False, Skype4Py will
   remain to function (commands may be send to Skype and replies are returned)
   but it won't receive notifications from the client and their corresponding
   events will never be fired up.
