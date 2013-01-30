@@ -1,6 +1,12 @@
 Changelog
 ======================
 
+1.0.35 (unreleased)
+-------------------
+
+- Nothing changed yet.
+
+
 1.0.34 (2013-01-30)
 
 - Reworked release system and egg structure to follow the best practices [miohtama]
