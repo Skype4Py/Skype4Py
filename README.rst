@@ -11,6 +11,8 @@ Community
 ===========
 
 `Support and issues on Github <https://github.com/awahlig/skype4py>`_.
+Skype4Py is not a Skype™, not associated with Microsoft or Skype.
+For questions you can also use `stackoveflow.com with skype4py tag <http://stackoverflow.com/questions/tagged/skype4py>`_. Do **not** go for ``developer.skype.com`` for support.
 
 Orignal author: `Arkadiusz Wahlig <http://arkadiusz.wahlig.eu/>`_
 
@@ -198,7 +200,7 @@ Example::
 Trademark notification
 ========================
 
-“Skype™, associated trademarks and logos and the “S” logo are trademarks of Skype. ``Skype4Py``
+Skype™, associated trademarks and logos and the “S” logo are trademarks of Skype. ``Skype4Py``
 Python project is not affiliate of Skype or Microsoft corporation.
 
 
