@@ -33,6 +33,12 @@
 
 * RunMainLoop option for DBus transport and Mac OS X (darwin) platform
 
+1.0.34 (unreleased)
+                   
+
+- Nothing changed yet.
+
+
 1.0.33 (2013-01-30)
   were removed and replaced by a single "RunMainLoop" option. The same option has
   been added to Mac OS X platform transport.
