@@ -5,7 +5,7 @@ Introduction
 
 ``Skype4Py`` is a Python library which allows you to control Skype client application.
 
-It works on Windows, OSX and Linux platforms.
+It works on Windows, OSX and Linux platforms with Python 2.x versions.
 
 Community
 ===========
@@ -167,4 +167,20 @@ or::
     export DISPLAY=:0
 
 depending on your configuration before running Sevabot.
+
+Running unit tests
+====================
+
+Here is an example::
+
+    virtualenv-2.7 venv  # Create venv
+    source venv/bin/activate
+    python setup.py develop  # Install Skype4Py in development mode
+    cd unittests
+    python skype4pytest.py  # Execute tests
+
+Making a release
+=================
+
+`Use zest.releaser <http://opensourcehacker.com/2012/08/14/high-quality-automated-package-releases-for-python-with-zest-releaser/>`_
 

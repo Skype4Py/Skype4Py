@@ -5,6 +5,8 @@
 
 * Merged all fixed done in a fork https://github.com/stigkj/Skype4Py [miohtama]
 
+* Use standard pkg_distribution mechanism to expose the version numebr [miohtama]
+
 1.0.32.1
 =================================
 

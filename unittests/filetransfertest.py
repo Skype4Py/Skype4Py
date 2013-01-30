@@ -44,7 +44,7 @@ class FileTransferTest(skype4pytest.TestCase):
                          'FILETRANSFER 1234 FILEPATH \\spam\\eggs')
         t = self.obj.FileName
         self.assertInstance(t, str)
-        self.assertEqual(t, 'eggs')
+        self.assertEqual(t, '\\spam\\eggs')
         self.failUnless(self.api.is_empty())
 
     def testFilePath(self):

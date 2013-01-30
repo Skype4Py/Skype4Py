@@ -380,8 +380,9 @@ class SkypeTest(skype4pytest.TestCase):
         # Readable, Type: str
         t = self.obj.ApiWrapperVersion
         self.assertInstance(t, str)
-        from Skype4Py import __version__
-        self.assertEqual(t, __version__)
+        import pkg_resources
+        v = pkg_resources.get_distribution("Skype4Py").version
+        self.assertEqual(t, v)
 
     def testAttachmentStatus(self):
         # Readable, Type: int

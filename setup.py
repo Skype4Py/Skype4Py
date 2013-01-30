@@ -14,13 +14,11 @@ import os
 import sys
 
 from setuptools import setup
-from setuptools import find_packages
 
 from distutils.cmd import Command
 from distutils.command.install_lib import install_lib as old_install_lib
 
-
-VERSION = '1.0.33.0'
+VERSION = '1.0.33'
 
 # Change the current dir to where the setup.py is in case we're not there.
 path = os.path.split(sys.argv[0])[0]
@@ -148,6 +146,6 @@ setup(name='Skype4Py',
       license='BSD License',
       platforms=['Windows', 'Linux', 'MacOS X'],
       packages=['Skype4Py', 'Skype4Py.api', 'Skype4Py.lang'],
-      package_data={'Skype4Py': ['LICENSE']},
       provides=['Skype4Py'],
+      install_requires=['setuptools'],
       cmdclass=commands)

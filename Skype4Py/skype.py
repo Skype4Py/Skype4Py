@@ -178,7 +178,7 @@ class APINotifier(SkypeAPINotifier):
                 skype._CallEventHandler('WallpaperChanged', unicode2path(b))
         except weakref.ReferenceError:
             pass
-        
+
     def sending_command(self, command):
         try:
             self.skype._CallEventHandler('Command', command)
@@ -202,7 +202,7 @@ class Skype(EventHandlingBase):
        You should access this class using the alias at the package level:
 
        .. python::
-       
+
            import Skype4Py
 
            skype = Skype4Py.Skype()
@@ -224,7 +224,7 @@ class Skype(EventHandlingBase):
 
     def __init__(self, Events=None, **Options):
         """Initializes the object.
-        
+
         :Parameters:
           Events
             An optional object with event handlers. See `Skype4Py.utils.EventHandlingBase`
@@ -249,12 +249,12 @@ class Skype(EventHandlingBase):
         except KeyError:
             self._Api = SkypeAPI(Options)
         self._Api.set_notifier(APINotifier(self))
-        
+
         Cached._CreateOwner(self)
 
         self._Cache = True
         self.ResetCache()
-        
+
         from api import DEFAULT_TIMEOUT
         self._Timeout = DEFAULT_TIMEOUT
 
@@ -358,7 +358,7 @@ class Skype(EventHandlingBase):
         :Parameters:
           Name : unicode
             Application name.
-            
+
         :return: The application object.
         :rtype: `application.Application`
         """
@@ -901,8 +901,8 @@ class Skype(EventHandlingBase):
     """)
 
     def _GetApiWrapperVersion(self):
-        from Skype4Py import __version__
-        return __version__
+        import pkg_resources
+        return pkg_resources.get_distribution("Skype4Py").version
 
     ApiWrapperVersion = property(_GetApiWrapperVersion,
     doc="""Returns Skype4Py version.
@@ -1248,7 +1248,7 @@ class Skype(EventHandlingBase):
     doc="""Queries/sets the wait timeout value. This timeout value applies to every command sent
     to the Skype API and to attachment requests (see `Attach`). If a response is not received
     during the timeout period, an `SkypeAPIError` exception is raised.
-    
+
     The units depend on the type. For float it is the number of seconds (or fractions thereof),
     for int or long it is the number of milliseconds. Floats are commonly used in Python modules
     to express timeouts (time.sleep() for example). Milliseconds are supported because that's
@@ -1570,7 +1570,7 @@ class SkypeEvents(object):
             Group object.
           Count : int
             Number of group members.
-            
+
         :note: This event is different from its Skype4COM equivalent in that the second
                parameter is number of users instead of `UserCollection` object. This
                object may be obtained using ``Group.Users`` property.
