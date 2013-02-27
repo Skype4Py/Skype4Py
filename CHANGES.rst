@@ -1,10 +1,11 @@
 Changelog
 ======================
 
-1.0.35 (unreleased)
+1.0.35 (2013-02-26)
 -------------------
 
-- Nothing changed yet.
+- Updated Skype main window classname under Windows for Skype versions 5 and
+  higher, to detect whether Skype is running [suurjaak]
 
 
 1.0.34 (2013-01-30)
