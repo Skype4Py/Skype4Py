@@ -1,6 +1,21 @@
 Changelog
 ======================
 
+1.0.36 (2013-05-20)
+-------------------
+
+- Fixed Issue #16 [prajna-pranab]
+
+  The Skype API generally responds to ALTER commands by echoing back the command, including
+  any id associated with the command e.g.
+  
+  -> ALTER VOICEMAIL <id> action
+  <- ALTER VOICEMAIL <id> action
+  
+  For some reason the API strips the chat id from the ALTER CHAT command when it responds
+  but the code in the chat.py _Alter() method was expecting the command to be echoed back
+  just as it had been sent.
+
 1.0.35 (2013-02-26)
 -------------------
 
