@@ -17,8 +17,17 @@ class Chat(Cached):
         return Cached.__repr__(self, 'Name')
 
     def _Alter(self, AlterName, Args=None):
+        '''
+        --- Prajna bug fix ---
+        Original code:
         return self._Owner._Alter('CHAT', self.Name, AlterName, Args,
                                   'ALTER CHAT %s %s' % (self.Name, AlterName))
+        Whereas most of the ALTER commands echo the command in the reply,
+        the ALTER CHAT commands strip the <chat_id> from the reply,
+        so we need to do the same for the expected reply
+        '''
+        return self._Owner._Alter('CHAT', self.Name, AlterName, Args,
+                                  'ALTER CHAT %s' % (AlterName))
 
     def _Property(self, PropName, Value=None, Cache=True):
         return self._Owner._Property('CHAT', self.Name, PropName, Value, Cache)
