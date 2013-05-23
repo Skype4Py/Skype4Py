@@ -1,6 +1,20 @@
 Changelog
 ======================
 
+1.0.37 (2013-05-23)
+-------------------
+
+- Fixed Unit Tests in chattest.py that broke when Issue #16 was fixed
+
+  The unit test functions call self.api.enqueue(cmd, reply=cmd) to simulate calling the Skype API.
+  Since the ALTER CHAT commands strip the chat_id from the reply reply!=cmd and the actual expected
+  reply needed to be specified in 16 of the test functions.
+  
+  e.g:
+      self.api.enqueue('ALTER CHAT spam ACCEPTADD')
+  changed to:
+      self.api.enqueue('ALTER CHAT spam ACCEPTADD', 'ALTER CHAT ACCEPTADD')
+
 1.0.36 (2013-05-20)
 -------------------
 
