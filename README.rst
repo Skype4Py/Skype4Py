@@ -105,7 +105,11 @@ methods, arguments, variables and module names use lowercase letters with unders
 Projects using Skype4Py
 =========================
 
-See `Sevabot - A Skype bot supporting integration with external services <https://github.com/opensourcehacker/sevabot>`_
+Below are projcts using Skype4Py library
+
+* `Sevabot - A Skype bot supporting integration with external services written in Python <https://github.com/opensourcehacker/sevabot>`_
+
+* `Hubot-Skype  - A Skype adapter for Hubot (CoffeeScript) <https://github.com/netpro2k/hubot-skype>`_
 
 Troubleshooting
 ================
