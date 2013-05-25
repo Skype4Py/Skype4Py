@@ -4,7 +4,7 @@ Changelog
 1.0.36 (unreleased)
 -------------------
 
-- Nothing changed yet.
+- Refuse to start in 64-bit mode and do not segfault [miohtama]
 
 
 1.0.35 (2013-05-25)
