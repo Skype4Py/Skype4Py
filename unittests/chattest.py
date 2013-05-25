@@ -12,52 +12,52 @@ class ChatTest(skype4pytest.TestCase):
     # =======
 
     def testAcceptAdd(self):
-        self.api.enqueue('ALTER CHAT spam ACCEPTADD')
+        self.api.enqueue('ALTER CHAT spam ACCEPTADD', 'ALTER CHAT ACCEPTADD')
         self.obj.AcceptAdd()
         self.failUnless(self.api.is_empty())
 
     def testAddMembers(self):
-        self.api.enqueue('ALTER CHAT spam ADDMEMBERS eggs')
+        self.api.enqueue('ALTER CHAT spam ADDMEMBERS eggs', 'ALTER CHAT ADDMEMBERS eggs')
         self.obj.AddMembers(User(self.skype, 'eggs'))
         self.failUnless(self.api.is_empty())
 
     def testBookmark(self):
-        self.api.enqueue('ALTER CHAT spam BOOKMARK')
+        self.api.enqueue('ALTER CHAT spam BOOKMARK', 'ALTER CHAT spam BOOKMARKED TRUE')
         self.obj.Bookmark()
         self.failUnless(self.api.is_empty())
 
     def testClearRecentMessages(self):
-        self.api.enqueue('ALTER CHAT spam CLEARRECENTMESSAGES')
+        self.api.enqueue('ALTER CHAT spam CLEARRECENTMESSAGES', 'ALTER CHAT CLEARRECENTMESSAGES')
         self.obj.ClearRecentMessages()
         self.failUnless(self.api.is_empty())
 
     def testDisband(self):
-        self.api.enqueue('ALTER CHAT spam DISBAND')
+        self.api.enqueue('ALTER CHAT spam DISBAND', 'ALTER CHAT DISBAND')
         self.obj.Disband()
         self.failUnless(self.api.is_empty())
 
     def testEnterPassword(self):
-        self.api.enqueue('ALTER CHAT spam ENTERPASSWORD eggs')
+        self.api.enqueue('ALTER CHAT spam ENTERPASSWORD eggs', 'ALTER CHAT ENTERPASSWORD eggs')
         self.obj.EnterPassword('eggs')
         self.failUnless(self.api.is_empty())
 
     def testJoin(self):
-        self.api.enqueue('ALTER CHAT spam JOIN')
+        self.api.enqueue('ALTER CHAT spam JOIN', 'ALTER CHAT JOIN')
         self.obj.Join()
         self.failUnless(self.api.is_empty())
 
     def testKick(self):
-        self.api.enqueue('ALTER CHAT spam KICK eggs, sausage')
+        self.api.enqueue('ALTER CHAT spam KICK eggs, sausage', 'ALTER CHAT KICK eggs, sausage')
         self.obj.Kick('eggs', 'sausage')
         self.failUnless(self.api.is_empty())
 
     def _testKickBan(self):
-        self.api.enqueue('ALTER CHAT spam KICKBAN eggs, sausage')
+        self.api.enqueue('ALTER CHAT spam KICKBAN eggs, sausage', 'ALTER CHAT KICKBAN eggs, sausage')
         self.obj.KickBan('eggs', 'sausage')
         self.failUnless(self.api.is_empty())
 
     def testLeave(self):
-        self.api.enqueue('ALTER CHAT spam LEAVE')
+        self.api.enqueue('ALTER CHAT spam LEAVE', 'ALTER CHAT LEAVE')
         self.obj.Leave()
         self.failUnless(self.api.is_empty())
 
@@ -76,12 +76,12 @@ class ChatTest(skype4pytest.TestCase):
         self.failUnless(self.api.is_empty())
 
     def testSetPassword(self):
-        self.api.enqueue('ALTER CHAT spam SETPASSWORD eggs sausage')
+        self.api.enqueue('ALTER CHAT spam SETPASSWORD eggs sausage', 'ALTER CHAT SETPASSWORD eggs sausage')
         self.obj.SetPassword('eggs', 'sausage')
         self.failUnless(self.api.is_empty())
 
     def testUnbookmark(self):
-        self.api.enqueue('ALTER CHAT spam UNBOOKMARK')
+        self.api.enqueue('ALTER CHAT spam UNBOOKMARK', 'ALTER CHAT spam BOOKMARKED FALSE')
         self.obj.Unbookmark()
         self.failUnless(self.api.is_empty())
 
@@ -129,7 +129,7 @@ class ChatTest(skype4pytest.TestCase):
 
     def testAlertString(self):
         # Writable, Type: unicode
-        self.api.enqueue('ALTER CHAT spam SETALERTSTRING =eggs')
+        self.api.enqueue('ALTER CHAT spam SETALERTSTRING =eggs', 'ALTER CHAT SETALERTSTRING =eggs')
         self.obj.AlertString = 'eggs'
         self.failUnless(self.api.is_empty())
 
@@ -211,7 +211,7 @@ class ChatTest(skype4pytest.TestCase):
         self.assertInstance(t, unicode)
         self.assertEqual(t, 'eggs')
         self.failUnless(self.api.is_empty())
-        self.api.enqueue('ALTER CHAT spam SETGUIDELINES eggs')
+        self.api.enqueue('ALTER CHAT spam SETGUIDELINES eggs', 'ALTER CHAT SETGUIDELINES eggs')
         self.obj.GuideLines = 'eggs'
         self.failUnless(self.api.is_empty())
 
@@ -275,7 +275,7 @@ class ChatTest(skype4pytest.TestCase):
         self.assertInstance(t, int)
         self.assertEqual(t, 123)
         self.failUnless(self.api.is_empty())
-        self.api.enqueue('ALTER CHAT spam SETOPTIONS eggs')
+        self.api.enqueue('ALTER CHAT spam SETOPTIONS eggs', 'ALTER CHAT SETOPTIONS eggs')
         self.obj.Options = 'eggs'
         self.failUnless(self.api.is_empty())
 
@@ -332,7 +332,7 @@ class ChatTest(skype4pytest.TestCase):
         self.assertInstance(t, unicode)
         self.assertEqual(t, 'eggs')
         self.failUnless(self.api.is_empty())
-        self.api.enqueue('ALTER CHAT spam SETTOPIC eggs')
+        self.api.enqueue('ALTER CHAT spam SETTOPIC eggs', 'ALTER CHAT SETTOPIC eggs')
         self.obj.Topic = 'eggs'
         self.failUnless(self.api.is_empty())
 
@@ -344,7 +344,7 @@ class ChatTest(skype4pytest.TestCase):
         self.assertInstance(t, unicode)
         self.assertEqual(t, 'eggs')
         self.failUnless(self.api.is_empty())
-        self.api.enqueue('ALTER CHAT spam SETTOPICXML eggs')
+        self.api.enqueue('ALTER CHAT spam SETTOPICXML eggs', 'ALTER CHAT SETTOPICXML eggs')
         self.obj.TopicXML = 'eggs'
         self.failUnless(self.api.is_empty())
 
