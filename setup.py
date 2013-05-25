@@ -18,7 +18,7 @@ from setuptools import setup
 from distutils.cmd import Command
 from distutils.command.install_lib import install_lib as old_install_lib
 
-VERSION = '1.0.37'
+VERSION = '1.0.35'
 
 # Change the current dir to where the setup.py is in case we're not there.
 path = os.path.split(sys.argv[0])[0]

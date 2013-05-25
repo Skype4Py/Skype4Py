@@ -1,43 +1,26 @@
 Changelog
 ======================
 
-1.0.37 (2013-05-23)
--------------------
-
-- Fixed Unit Tests in chattest.py that broke when Issue #16 was fixed
-
-  The unit test functions call self.api.enqueue(cmd, reply=cmd) to simulate calling the Skype API.
-  Since the ALTER CHAT commands strip the chat_id from the reply reply!=cmd and the actual expected
-  reply needed to be specified in 16 of the test functions.
-  
-  e.g:
-      self.api.enqueue('ALTER CHAT spam ACCEPTADD')
-  changed to:
-      self.api.enqueue('ALTER CHAT spam ACCEPTADD', 'ALTER CHAT ACCEPTADD')
-
-1.0.36 (2013-05-20)
+1.0.36 (unreleased)
 -------------------
 
 - Fixed Issue #16 [prajna-pranab]
 
   The Skype API generally responds to ALTER commands by echoing back the command, including
   any id associated with the command e.g.
-  
+
   -> ALTER VOICEMAIL <id> action
   <- ALTER VOICEMAIL <id> action
-  
+
   For some reason the API strips the chat id from the ALTER CHAT command when it responds
   but the code in the chat.py _Alter() method was expecting the command to be echoed back
   just as it had been sent.
 
-1.0.35 (2013-02-26)
--------------------
-
 - Updated Skype main window classname under Windows for Skype versions 5 and
   higher, to detect whether Skype is running [suurjaak]
 
-
 1.0.34 (2013-01-30)
+------------------
 
 - Reworked release system and egg structure to follow the best practices [miohtama]
 

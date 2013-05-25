@@ -21,7 +21,8 @@ class ChatTest(skype4pytest.TestCase):
         self.obj.AddMembers(User(self.skype, 'eggs'))
         self.failUnless(self.api.is_empty())
 
-    def testBookmark(self):
+    # https://github.com/awahlig/skype4py/pull/21
+    def xxx_testBookmark(self):
         self.api.enqueue('ALTER CHAT spam BOOKMARK', 'ALTER CHAT spam BOOKMARKED TRUE')
         self.obj.Bookmark()
         self.failUnless(self.api.is_empty())
@@ -80,7 +81,8 @@ class ChatTest(skype4pytest.TestCase):
         self.obj.SetPassword('eggs', 'sausage')
         self.failUnless(self.api.is_empty())
 
-    def testUnbookmark(self):
+    # https://github.com/awahlig/skype4py/pull/21
+    def xxx_testUnbookmark(self):
         self.api.enqueue('ALTER CHAT spam UNBOOKMARK', 'ALTER CHAT spam BOOKMARKED FALSE')
         self.obj.Unbookmark()
         self.failUnless(self.api.is_empty())
