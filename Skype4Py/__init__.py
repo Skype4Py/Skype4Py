@@ -19,9 +19,6 @@ from api import platform
 import logging
 
 
-"""The version of Skype4Py."""
-
-
 class NullHandler(logging.Handler):
     def emit(self, record):
         pass
