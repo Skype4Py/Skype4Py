@@ -6,7 +6,7 @@ import re
 
 class SkypeBot(object):
   def __init__(self):
-    self.skype = Skype4Py.Skype(Events=self, ApiDebugLevel=1)
+    self.skype = Skype4Py.Skype(Events=self)
     self.skype.FriendlyName = "Skype Bot"
     self.skype.Attach()
     
