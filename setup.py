@@ -148,5 +148,6 @@ setup(name='Skype4Py',
       packages=['Skype4Py', 'Skype4Py.api', 'Skype4Py.lang'],
       provides=['Skype4Py'],
       install_requires=['setuptools'],
+      requires=['dbus', 'gobject'],
       zip_safe=True,
       cmdclass=commands)
