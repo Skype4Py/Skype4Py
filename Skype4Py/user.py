@@ -3,8 +3,8 @@
 __docformat__ = 'restructuredtext en'
 
 
-from utils import *
-from enums import *
+from .utils import *
+from .enums import *
 
 
 class User(Cached):
@@ -30,7 +30,7 @@ class User(Cached):
         s = 'USER %s AVATAR %s %s' % (self.Handle, AvatarId, path2unicode(Filename))
         self._Owner._DoCommand('GET %s' % s, s)
 
-    def SetBuddyStatusPendingAuthorization(self, Text=u''):
+    def SetBuddyStatusPendingAuthorization(self, Text=''):
         """Sets the BuddyStaus property to `enums.budPendingAuthorization`
         additionally specifying the authorization text.
 
@@ -253,7 +253,7 @@ class User(Cached):
 
     def _GetLanguageCode(self):
         if self._Owner.Protocol < 4:
-            return u''
+            return ''
         value = self._Property('LANGUAGE')
         if value:
             value = chop(value)[0]

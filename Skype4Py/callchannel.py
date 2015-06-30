@@ -6,9 +6,9 @@ __docformat__ = 'restructuredtext en'
 import time
 from copy import copy
 
-from utils import *
-from enums import *
-from errors import SkypeError
+from .utils import *
+from .enums import *
+from .errors import SkypeError
 
 
 class CallChannelManager(EventHandlingBase):
@@ -65,7 +65,7 @@ class CallChannelManager(EventHandlingBase):
             self._SetEventHandlerObj(Events)
 
         self._App = None
-        self._Name = u'CallChannelManager'
+        self._Name = 'CallChannelManager'
         self._ChannelType = cctReliable
         self._Channels = []
         self.Connect(Skype)

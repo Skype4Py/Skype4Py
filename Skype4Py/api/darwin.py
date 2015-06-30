@@ -27,6 +27,7 @@ from Skype4Py.api import Command, SkypeAPIBase, \
                          timeout2float, finalize_opts
 from Skype4Py.errors import SkypeAPIError
 from Skype4Py.enums import *
+import collections
 
 
 __all__ = ['SkypeAPI']
@@ -51,7 +52,7 @@ class CFType(object):
 
     @classmethod
     def from_handle(cls, handle):
-        if isinstance(handle, (int, long)):
+        if isinstance(handle, int):
             handle = c_void_p(handle)
         elif not isinstance(handle, c_void_p):
             raise TypeError('illegal handle type: %s' % type(handle))
@@ -91,9 +92,9 @@ class CFString(CFType):
     :see: http://developer.apple.com/documentation/CoreFoundation/Reference/CFStringRef/
     """
 
-    def __init__(self, init=u''):
-        if isinstance(init, (str, unicode)):
-            s = unicode(init).encode('utf-8')
+    def __init__(self, init=''):
+        if isinstance(init, str):
+            s = str(init).encode('utf-8')
             init = c_void_p(coref.CFStringCreateWithBytes(None,
                                     s, len(s), 0x08000100, False))
         CFType.__init__(self, init)
@@ -115,7 +116,7 @@ class CFString(CFType):
         return coref.CFStringGetLength(self)
 
     def __repr__(self):
-        return 'CFString(%s)' % repr(unicode(self))
+        return 'CFString(%s)' % repr(str(self))
 
 
 class CFNumber(CFType):
@@ -127,7 +128,7 @@ class CFNumber(CFType):
     """
 
     def __init__(self, init=0):
-        if isinstance(init, (int, long)):
+        if isinstance(init, int):
             init = c_void_p(coref.CFNumberCreate(None, 3, byref(c_int(int(init)))))
         CFType.__init__(self, init)
 
@@ -165,7 +166,7 @@ class CFDictionary(CFType):
         values = (c_void_p * n)()
         coref.CFDictionaryGetKeysAndValues(self, keys, values)
         d = dict()
-        for i in xrange(n):
+        for i in range(n):
             d[CFType.from_handle(keys[i])] = CFType.from_handle(values[i])
         return d
 
@@ -197,15 +198,15 @@ class CFDistributedNotificationCenter(CFType):
         if obj:
             obj = CFString.from_handle(obj)
         userInfo = CFDictionary.from_handle(userInfo)
-        callback = self.callbacks[(unicode(observer), unicode(name))]
+        callback = self.callbacks[(str(observer), str(name))]
         callback(self, observer, name, obj, userInfo)
 
     def add_observer(self, observer, callback, name=None, obj=None,
             drop=False, coalesce=False, hold=False, immediate=False):
-        if not callable(callback):
+        if not isinstance(callback, collections.Callable):
             raise TypeError('callback must be callable')
         observer = CFString(observer)
-        self.callbacks[(unicode(observer), unicode(name))] = callback
+        self.callbacks[(str(observer), str(name))] = callback
         if name is not None:
             name = CFString(name)
         if obj is not None:
@@ -231,7 +232,7 @@ class CFDistributedNotificationCenter(CFType):
             obj = CFString(obj)
         coref.CFNotificationCenterRemoveObserver(self, observer, name, obj)
         try:
-            del self.callbacks[(unicode(observer), unicode(name))]
+            del self.callbacks[(str(observer), str(name))]
         except KeyError:
             pass
 
@@ -385,7 +386,7 @@ class SkypeAPI(SkypeAPIBase):
             self.attach(command.Timeout)
         self.push_command(command)
         self.notifier.sending_command(command)
-        cmd = u'#%d %s' % (command.Id, command.Command)
+        cmd = '#%d %s' % (command.Id, command.Command)
         if command.Blocking:
             if self.run_main_loop:
                 command._event = event = threading.Event()
@@ -442,11 +443,11 @@ class SkypeAPI(SkypeAPIBase):
         client_id = int(CFNumber(userInfo[CFString('SKYPE_API_CLIENT_ID')]))
         if client_id != 999 and (client_id == 0 or client_id != self.client_id):
             return
-        cmd = unicode(CFString(userInfo[CFString('SKYPE_API_NOTIFICATION_STRING')]))
+        cmd = str(CFString(userInfo[CFString('SKYPE_API_NOTIFICATION_STRING')]))
         self.logger.debug('received %s', repr(cmd))
 
-        if cmd.startswith(u'#'):
-            p = cmd.find(u' ')
+        if cmd.startswith('#'):
+            p = cmd.find(' ')
             command = self.pop_command(int(cmd[1:p]))
             if command is not None:
                 command.Reply = cmd[p + 1:]
@@ -479,7 +480,7 @@ class SkypeAPI(SkypeAPIBase):
         self.logger.debug('received SKSkypeAttachResponse')
         # It seems that this notification is not called if the access is refused. Therefore we can't
         # distinguish between attach timeout and access refuse.
-        if unicode(CFString(userInfo[CFString('SKYPE_API_CLIENT_NAME')])) == self.friendly_name:
+        if str(CFString(userInfo[CFString('SKYPE_API_CLIENT_NAME')])) == self.friendly_name:
             response = int(CFNumber(userInfo[CFString('SKYPE_API_ATTACH_RESPONSE')]))
             if response and self.client_id == -1:
                 self.client_id = response

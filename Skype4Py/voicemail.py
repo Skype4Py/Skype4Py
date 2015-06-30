@@ -3,9 +3,9 @@
 __docformat__ = 'restructuredtext en'
 
 
-from utils import *
-from enums import *
-from call import DeviceMixin
+from .utils import *
+from .enums import *
+from .call import DeviceMixin
 
 
 class Voicemail(Cached, DeviceMixin):

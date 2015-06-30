@@ -5,7 +5,7 @@ __docformat__ = 'restructuredtext en'
 
 import weakref
 
-from utils import *
+from .utils import *
 
 
 class Profile(object):
@@ -70,7 +70,7 @@ class Profile(object):
     """)
 
     def _GetBalanceToText(self):
-        return (u'%s %.2f' % (self.BalanceCurrency, self.BalanceValue)).strip()
+        return ('%s %.2f' % (self.BalanceCurrency, self.BalanceValue)).strip()
 
     BalanceToText = property(_GetBalanceToText,
     doc="""Skype credit balance as properly formatted text with currency.

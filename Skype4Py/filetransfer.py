@@ -5,7 +5,7 @@ __docformat__ = 'restructuredtext en'
 
 import os
 
-from utils import *
+from .utils import *
 
 
 class FileTransfer(Cached):
@@ -32,7 +32,7 @@ class FileTransfer(Cached):
     """)
 
     def _GetBytesTransferred(self):
-        return long(self._Property('BYTESTRANSFERRED'))
+        return int(self._Property('BYTESTRANSFERRED'))
 
     BytesTransferred = property(_GetBytesTransferred,
     doc="""Number of bytes transferred.
@@ -68,7 +68,7 @@ class FileTransfer(Cached):
     """)
 
     def _GetFileSize(self):
-        return long(self._Property('FILESIZE'))
+        return int(self._Property('FILESIZE'))
 
     FileSize = property(_GetFileSize,
     doc="""Size of the transferred file in bytes.

@@ -421,7 +421,7 @@ class SkypeAPI(SkypeAPIBase):
             self.attach(command.Timeout)
         self.push_command(command)
         self.notifier.sending_command(command)
-        cmd = u'#%d %s' % (command.Id, command.Command)
+        cmd = '#%d %s' % (command.Id, command.Command)
         self.logger.debug('sending %s', repr(cmd))
         if command.Blocking:
             command._event = bevent = threading.Event()
@@ -434,7 +434,7 @@ class SkypeAPI(SkypeAPIBase):
         event.xclient.message_type = self.atom_msg_begin
         event.xclient.format = 8
         cmd = cmd.encode('utf-8') + '\x00'
-        for i in xrange(0, len(cmd), 20):
+        for i in range(0, len(cmd), 20):
             event.xclient.data = cmd[i:i + 20]
             x11.XSendEvent(self.disp, self.win_skype, False, 0, byref(event))
             event.xclient.message_type = self.atom_msg
@@ -449,8 +449,8 @@ class SkypeAPI(SkypeAPIBase):
     def notify(self, cmd):
         self.logger.debug('received %s', repr(cmd))
         # Called by main loop for all received Skype commands.
-        if cmd.startswith(u'#'):
-            p = cmd.find(u' ')
+        if cmd.startswith('#'):
+            p = cmd.find(' ')
             command = self.pop_command(int(cmd[1:p]))
             if command is not None:
                 command.Reply = cmd[p + 1:]

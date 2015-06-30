@@ -60,7 +60,7 @@ class SkypeNotify(dbus.service.Object):
 
     @dbus.service.method(dbus_interface='com.Skype.API.Client')
     def Notify(self, com):
-        self.notify(unicode(com))
+        self.notify(str(com))
 
 
 class SkypeAPI(SkypeAPIBase):
@@ -200,7 +200,7 @@ class SkypeAPI(SkypeAPIBase):
             self.attach(command.Timeout)
         self.push_command(command)
         self.notifier.sending_command(command)
-        cmd = u'#%d %s' % (command.Id, command.Command)
+        cmd = '#%d %s' % (command.Id, command.Command)
         self.logger.debug('sending %s', repr(cmd))
         if command.Blocking:
             if self.run_main_loop:
@@ -212,9 +212,9 @@ class SkypeAPI(SkypeAPIBase):
             command._timer = timer = threading.Timer(command.timeout2float(), self.pop_command, (command.Id,))
         try:
             result = self.skype_out.Invoke(cmd)
-        except dbus.DBusException, err:
+        except dbus.DBusException as err:
             raise SkypeAPIError(str(err))
-        if result.startswith(u'#%d ' % command.Id):
+        if result.startswith('#%d ' % command.Id):
             self.notify(result)
         if command.Blocking:
             if self.run_main_loop:
@@ -230,10 +230,10 @@ class SkypeAPI(SkypeAPIBase):
             timer.start()
 
     def notify(self, cmd):
-        cmd = unicode(cmd)
+        cmd = str(cmd)
         self.logger.debug('received %s', repr(cmd))
-        if cmd.startswith(u'#'):
-            p = cmd.find(u' ')
+        if cmd.startswith('#'):
+            p = cmd.find(' ')
             command = self.pop_command(int(cmd[1:p]))
             if command is not None:
                 command.Reply = cmd[p + 1:]

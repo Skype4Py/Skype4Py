@@ -8,6 +8,7 @@ import weakref
 import threading
 import logging
 from new import instancemethod
+import collections
 
 
 __all__ = ['tounicode', 'path2unicode', 'unicode2path', 'chop', 'args2dict', 'quote',
@@ -25,7 +26,7 @@ def tounicode(s):
     :return: A unicode string being the result of the conversion.
     :rtype: unicode
     """
-    if isinstance(s, unicode):
+    if isinstance(s, str):
         return s
     return str(s).decode('utf-8')
     
@@ -387,7 +388,7 @@ class EventHandlingBase(object):
         """
         if Event not in self._EventHandlers:
             raise ValueError('%s is not a valid %s event name' % (Event, self.__class__.__name__))
-        args = map(repr, Args) + ['%s=%s' % (key, repr(value)) for key, value in KwArgs.items()]
+        args = list(map(repr, Args)) + ['%s=%s' % (key, repr(value)) for key, value in list(KwArgs.items())]
         self.__Logger.debug('calling %s: %s', Event, ', '.join(args))
         # Get a list of handlers for this event.
         try:
@@ -424,7 +425,7 @@ class EventHandlingBase(object):
 
         :see: `UnregisterEventHandler`
         """
-        if not callable(Target):
+        if not isinstance(Target, collections.Callable):
             raise TypeError('%s is not callable' % repr(Target))
         if Event not in self._EventHandlers:
             raise ValueError('%s is not a valid %s event name' % (Event, self.__class__.__name__))
@@ -449,7 +450,7 @@ class EventHandlingBase(object):
 
         :see: `RegisterEventHandler`
         """
-        if not callable(Target):
+        if not isinstance(Target, collections.Callable):
             raise TypeError('%s is not callable' % repr(Target))
         if Event not in self._EventHandlers:
             raise ValueError('%s is not a valid %s event name' % (Event, self.__class__.__name__))
@@ -461,7 +462,7 @@ class EventHandlingBase(object):
 
     def _SetDefaultEventHandler(self, Event, Target):
         if Target:
-            if not callable(Target):
+            if not isinstance(Target, collections.Callable):
                 raise TypeError('%s is not callable' % repr(Target))
             self._DefaultEventHandlers[Event] = Target
             self.__Logger.info('set default %s: %s', Event, repr(Target))
@@ -581,7 +582,7 @@ class CachedCollection(object):
     
     def __init__(self, Owner, Handles=[], Items=[]):
         self._Owner = Owner
-        self._Handles = map(self._CachedType._ValidateHandle, Handles)
+        self._Handles = list(map(self._CachedType._ValidateHandle, Handles))
         for item in Items:
             self.append(item)
 

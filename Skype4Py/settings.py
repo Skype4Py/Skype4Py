@@ -6,7 +6,7 @@ __docformat__ = 'restructuredtext en'
 import sys
 import weakref
 
-from utils import *
+from .utils import *
 
 
 class Settings(object):

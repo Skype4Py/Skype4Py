@@ -5,8 +5,8 @@ __docformat__ = 'restructuredtext en'
 
 import threading
 
-from utils import *
-from user import *
+from .utils import *
+from .user import *
 
 
 class Application(Cached):

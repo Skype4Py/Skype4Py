@@ -5,9 +5,9 @@ __docformat__ = 'restructuredtext en'
 
 import weakref
 
-from enums import *
-from errors import SkypeError
-from utils import *
+from .enums import *
+from .errors import SkypeError
+from .utils import *
 
 
 class Client(object):
@@ -59,7 +59,7 @@ class Client(object):
             quote(tounicode(Caption)), quote(tounicode(Hint))))
         return PluginEvent(self._Skype, EventId)
 
-    def CreateMenuItem(self, MenuItemId, PluginContext, CaptionText, HintText=u'', IconPath='', Enabled=True,
+    def CreateMenuItem(self, MenuItemId, PluginContext, CaptionText, HintText='', IconPath='', Enabled=True,
                        ContactType=pluginContactTypeAll, MultipleContacts=False):
         """Creates custom menu item in Skype client's "Do More" menus.
 
@@ -158,7 +158,7 @@ class Client(object):
             One or more optional parameters.
         """
         self._Skype._Api.allow_focus(self._Skype.Timeout)
-        params = filter(None, (str(Name),) + Params)
+        params = [_f for _f in (str(Name),) + Params if _f]
         self._Skype._DoCommand('OPEN %s' % tounicode(' '.join(params)))
 
     def OpenDialpadTab(self):
@@ -192,7 +192,7 @@ class Client(object):
         """
         self.OpenDialog('LIVETAB')
 
-    def OpenMessageDialog(self, Username, Text=u''):
+    def OpenMessageDialog(self, Username, Text=''):
         """Opens "Send an IM Message" dialog.
 
         :Parameters:
@@ -348,7 +348,7 @@ class PluginMenuItem(object):
         self._CacheDict = {}
         self._CacheDict['CAPTION'] = tounicode(Caption)
         self._CacheDict['HINT'] = tounicode(Hint)
-        self._CacheDict['ENABLED'] = cndexp(Enabled, u'TRUE', u'FALSE')
+        self._CacheDict['ENABLED'] = cndexp(Enabled, 'TRUE', 'FALSE')
 
     def __repr__(self):
         return '<%s with Id=%s>' % (object.__repr__(self)[1:-1], repr(self.Id))
@@ -357,7 +357,7 @@ class PluginMenuItem(object):
         if Set is None:
             return self._CacheDict[PropName]
         self._Skype._Property('MENU_ITEM', self.Id, PropName, Set)
-        self._CacheDict[PropName] = unicode(Set)
+        self._CacheDict[PropName] = str(Set)
 
     def Delete(self):
         """Removes the menu item from the "Do More" menus.

@@ -285,8 +285,8 @@ class SkypeAPI(SkypeAPIBase):
             cmd8 = copydata.lpData[:copydata.cbData - 1]
             cmd = cmd8.decode('utf-8')
             self.logger.debug('received %s', repr(cmd))
-            if cmd.startswith(u'#'):
-                p = cmd.find(u' ')
+            if cmd.startswith('#'):
+                p = cmd.find(' ')
                 command = self.pop_command(int(cmd[1:p]))
                 if command is not None:
                     command.Reply = cmd[p + 1:]
@@ -308,12 +308,12 @@ class SkypeAPI(SkypeAPIBase):
         return windll.user32.DefWindowProcA(c_int(hwnd), c_int(umsg), c_int(wparam), c_int(lparam))
 
     def send_command(self, command):
-        for retry in xrange(2):
+        for retry in range(2):
             if self.skype is None:
                 self.attach(command.Timeout)
             self.push_command(command)
             self.notifier.sending_command(command)
-            cmd = u'#%d %s' % (command.Id, command.Command)
+            cmd = '#%d %s' % (command.Id, command.Command)
             cmd8 = cmd.encode('utf-8') + '\0'
             copydata = COPYDATASTRUCT(None, len(cmd8), cmd8)
             if command.Blocking:

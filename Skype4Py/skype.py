@@ -7,21 +7,21 @@ import threading
 import weakref
 import logging
 
-from api import *
-from errors import *
-from enums import *
-from utils import *
-from conversion import *
-from client import *
-from user import *
-from call import *
-from profile import *
-from settings import *
-from chat import *
-from application import *
-from voicemail import *
-from sms import *
-from filetransfer import *
+from .api import *
+from .errors import *
+from .enums import *
+from .utils import *
+from .conversion import *
+from .client import *
+from .user import *
+from .call import *
+from .profile import *
+from .settings import *
+from .chat import *
+from .application import *
+from .voicemail import *
+from .sms import *
+from .filetransfer import *
 
 
 class APINotifier(SkypeAPINotifier):
@@ -164,7 +164,7 @@ class APINotifier(SkypeAPINotifier):
                     if i >= 0:
                         context = chop(value[i+8:])[0]
                         users = ()
-                        context_id = u''
+                        context_id = ''
                         if context in (pluginContextContact, pluginContextCall, pluginContextChat):
                             users = UserCollection(skype, split(value[:i-1], ', '))
                         if context in (pluginContextCall, pluginContextChat):
@@ -255,7 +255,7 @@ class Skype(EventHandlingBase):
         self._Cache = True
         self.ResetCache()
 
-        from api import DEFAULT_TIMEOUT
+        from .api import DEFAULT_TIMEOUT
         self._Timeout = DEFAULT_TIMEOUT
 
         self._Convert = Conversion(self)
@@ -307,7 +307,7 @@ class Skype(EventHandlingBase):
                 self._CacheDict[h] = value
             return value
         else: # Set
-            value = unicode(Set)
+            value = str(Set)
             self._DoCommand('SET %s %s' % (jarg, value), jarg)
             if Cache and self._Cache:
                 self._CacheDict[h] = value
@@ -498,7 +498,7 @@ class Skype(EventHandlingBase):
         """
         self._DoCommand('CLEAR VOICEMAILHISTORY')
 
-    def Command(self, Command, Reply=u'', Block=False, Timeout=30000, Id=-1):
+    def Command(self, Command, Reply='', Block=False, Timeout=30000, Id=-1):
         """Creates an API command object.
 
         :Parameters:
@@ -522,7 +522,7 @@ class Skype(EventHandlingBase):
 
         :see: `SendCommand`
         """
-        from api import Command as CommandClass
+        from .api import Command as CommandClass
         return CommandClass(Command, Reply, Block, Timeout, Id)
 
     def Conference(self, Id=0):
@@ -807,7 +807,7 @@ class Skype(EventHandlingBase):
         :rtype: `SmsMessage`
         """
         sms = self.CreateSms(smsMessageTypeOutgoing, *TargetNumbers)
-        for name, value in Properties.items():
+        for name, value in list(Properties.items()):
             if isinstance(getattr(sms.__class__, name, None), property):
                 setattr(sms, name, value)
             else:
@@ -1239,7 +1239,7 @@ class Skype(EventHandlingBase):
         return self._Timeout
 
     def _SetTimeout(self, Value):
-        if not isinstance(Value, (int, long, float)):
+        if not isinstance(Value, (int, float)):
             raise TypeError('%s: wrong type, expected float (seconds), int or long (milliseconds)' %
                 repr(type(Value)))
         self._Timeout = Value

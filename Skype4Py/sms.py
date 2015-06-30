@@ -3,7 +3,7 @@
 __docformat__ = 'restructuredtext en'
 
 
-from utils import *
+from .utils import *
 
 
 class SmsMessage(Cached):
@@ -51,7 +51,7 @@ class SmsMessage(Cached):
     """)
 
     def _GetChunks(self):
-        return SmsChunkCollection(self, xrange(int(chop(self._Property('CHUNKING', Cache=False))[0])))
+        return SmsChunkCollection(self, range(int(chop(self._Property('CHUNKING', Cache=False))[0])))
 
     Chunks = property(_GetChunks,
     doc="""Chunks of this SMS message. More than one if this is a multi-part message.
@@ -130,7 +130,7 @@ class SmsMessage(Cached):
     """)
 
     def _GetPriceToText(self):
-        return (u'%s %.3f' % (self.PriceCurrency, self.PriceValue)).strip()
+        return ('%s %.3f' % (self.PriceCurrency, self.PriceValue)).strip()
 
     PriceToText = property(_GetPriceToText,
     doc="""SMS price as properly formatted text with currency.
@@ -245,7 +245,7 @@ class SmsChunk(Cached):
         return Cached.__repr__(self, 'Id', 'Message')
 
     def _GetCharactersLeft(self):
-        count, left = map(int, chop(self.Message._Property('CHUNKING', Cache=False)))
+        count, left = list(map(int, chop(self.Message._Property('CHUNKING', Cache=False))))
         if self.Id == count - 1:
             return left
         return 0

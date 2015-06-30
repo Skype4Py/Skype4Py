@@ -3,9 +3,9 @@
 __docformat__ = 'restructuredtext en'
 
 
-from utils import *
-from user import *
-from errors import SkypeError
+from .utils import *
+from .user import *
+from .errors import SkypeError
 
 
 class Chat(Cached):

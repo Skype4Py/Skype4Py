@@ -32,9 +32,9 @@ __all__ = ['SkypeAPI']
 def SkypeAPI(opts):
     trans = opts.pop('Transport', 'dbus')
     if trans == 'dbus':
-        from posix_dbus import SkypeAPI
+        from .posix_dbus import SkypeAPI
     elif trans == 'x11':
-        from posix_x11 import SkypeAPI
+        from .posix_x11 import SkypeAPI
     else:
         raise SkypeAPIError('Unknown transport: %s' % trans)
     return SkypeAPI(opts)

@@ -1,34 +1,34 @@
 """Language translations.
 """
 
-import ar
-import bg
-import cs
-import cz
-import da
-import de
-import el
-import en
-import en
-import es
-import et
-import fi
-import fr
-import he
-import hu
-import it
-import ja
-import ko
-import lt
-import lv
-import nl
-import no
-import pl
-import pl
-import pp
-import pt
-import ro
-import ru
-import sv
-import tr
-import x1
+from . import ar
+from . import bg
+from . import cs
+from . import cz
+from . import da
+from . import de
+from . import el
+from . import en
+from . import en
+from . import es
+from . import et
+from . import fi
+from . import fr
+from . import he
+from . import hu
+from . import it
+from . import ja
+from . import ko
+from . import lt
+from . import lv
+from . import nl
+from . import no
+from . import pl
+from . import pl
+from . import pp
+from . import pt
+from . import ro
+from . import ru
+from . import sv
+from . import tr
+from . import x1

@@ -30,7 +30,7 @@ __all__ = ['Command', 'SkypeAPINotifier', 'SkypeAPI']
 
 
 DEFAULT_PROTOCOL = 5
-DEFAULT_FRIENDLYNAME = u'Skype4Py'
+DEFAULT_FRIENDLYNAME = 'Skype4Py'
 DEFAULT_TIMEOUT = 30000
 
 
@@ -40,7 +40,7 @@ class Command(object):
     To send a command to Skype, use `Skype.SendCommand`.
     """
 
-    def __init__(self, Command, Expected=u'', Blocking=False, Timeout=DEFAULT_TIMEOUT, Id=-1):
+    def __init__(self, Command, Expected='', Blocking=False, Timeout=DEFAULT_TIMEOUT, Id=-1):
         """Use `Skype.Command` to instantiate the object instead of doing it directly.
         """
 
@@ -64,7 +64,7 @@ class Command(object):
         
         :type: int"""
 
-        self.Reply = u''
+        self.Reply = ''
         """Reply after the command has been sent and Skype has replied.
         
         :type: unicode"""
@@ -211,7 +211,7 @@ def finalize_opts(opts):
     unexpected keys in the error message.
     """
     if opts:
-        raise TypeError('Unexpected option(s): %s' % ', '.join(opts.keys()))
+        raise TypeError('Unexpected option(s): %s' % ', '.join(list(opts.keys())))
 
 
 # Select appropriate low-level Skype API module
@@ -220,13 +220,13 @@ if getattr(sys, 'skype4py_setup', False):
     SkypeAPI = lambda **Options: None
     platform = ''
 elif sys.platform.startswith('win'):
-    from windows import SkypeAPI
+    from .windows import SkypeAPI
     platform = 'windows'
 elif sys.platform == 'darwin':
-    from darwin import SkypeAPI
+    from .darwin import SkypeAPI
     platform = 'darwin'
 else:
-    from posix import SkypeAPI
+    from .posix import SkypeAPI
     platform = 'posix'
 
 
