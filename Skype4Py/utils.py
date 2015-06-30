@@ -7,7 +7,6 @@ import sys
 import weakref
 import threading
 import logging
-from new import instancemethod
 import collections
 
 
@@ -29,8 +28,8 @@ def tounicode(s):
     if isinstance(s, str):
         return s
     return str(s).decode('utf-8')
-    
-    
+
+
 def path2unicode(path):
     """Decodes a file/directory path from the current file system encoding to unicode.
 
@@ -42,7 +41,7 @@ def path2unicode(path):
     :rtype: unicode
     """
     return path.decode(sys.getfilesystemencoding())
-    
+
 
 def unicode2path(path):
     """Encodes a file/directory path from unicode to the current file system encoding.
@@ -194,7 +193,7 @@ def cndexp(condition, truevalue, falsevalue):
 class EventSchedulerThread(threading.Thread):
     def __init__(self, name, after, handlers, args, kwargs):
         """Initializes the object.
-        
+
         :Parameters:
           name : str
             Event name.
@@ -262,21 +261,21 @@ class EventHandlingBase(object):
                    print 'The status of the user changed'
 
            skype = Skype4Py.Skype(Events=MySkypeEvents())
-           
+
        If your application is build around a class, you may want to use is for Skype4Py
        events too. For example:
-       
+
        .. python::
-       
+
            import Skype4Py
-           
+
            class MyApplication:
                def __init__(self):
                    self.skype = Skype4Py.Skype(Events=self)
-                   
+
                def UserStatus(self, Status):
                    print 'The status of the user changed'
-                   
+
        This lets you access the `Skype` object (``self.skype``) without using global
        variables.
 
@@ -289,7 +288,7 @@ class EventHandlingBase(object):
        This method lets you use any callables as event handlers. Simply assign them to ``On...``
        properties (where "``...``" is the name of the event) of the object whose events you are
        interested in. For example:
-       
+
        .. python::
 
            import Skype4Py
@@ -317,7 +316,7 @@ class EventHandlingBase(object):
 
        In this case, you use `RegisterEventHandler` and `UnregisterEventHandler` methods
        of the object whose events you are interested in. For example:
-       
+
        .. python::
 
            import Skype4Py
@@ -334,7 +333,7 @@ class EventHandlingBase(object):
        The names of the events and their arguments lists should be taken from respective events
        classes (see above). Note that there is no ``self`` argument (which can be seen in the events
        classes) simply because our event handler is a function, not a method.
-       
+
        All handlers attached to a single event will be called serially in the order they were
        registered.
 
@@ -345,7 +344,7 @@ class EventHandlingBase(object):
        there is at most one thread per event calling your handlers. This means that when many events
        of the same type occur at once, the handlers will be called one after another. Different events
        will be handled simultaneously.
-    
+
     Cyclic references note
     ======================
 
@@ -377,7 +376,7 @@ class EventHandlingBase(object):
         """Calls all event handlers defined for given Event, additional parameters
         will be passed unchanged to event handlers, all event handlers are fired on
         separate threads.
-        
+
         :Parameters:
           Event : str
             Name of the event.
@@ -481,7 +480,7 @@ class EventHandlingBase(object):
     def _SetEventHandlerObject(self, Object):
         """Registers an object as events handler, object should contain methods with names
         corresponding to event names, only one object may be registered at a time.
-        
+
         :Parameters:
           Object
             Object to register. May be None in which case the currently registered object
@@ -493,7 +492,7 @@ class EventHandlingBase(object):
     @classmethod
     def _AddEvents(cls, Class):
         """Adds events based on the attributes of the given ``...Events`` class.
-        
+
         :Parameters:
           Class : class
             An `...Events` class whose methods define events that may occur in the
@@ -540,25 +539,25 @@ class Cached(object):
             return obj
         except AttributeError:
             raise TypeError('%s is not a cached objects owner' % repr(Owner))
-            
+
     def _Init(self):
         """Initializes the cached object. Receives all the arguments passed to the
         constructor The default implementation stores the ``Owner`` in
         ``self._Owner`` and ``Handle`` in ``self._Handle``.
-        
+
         This method should be used instead of ``__init__`` to prevent double
         initialization.
         """
 
     def __copy__(self):
         return self
-        
+
     def __repr__(self, *Attrs):
         if not Attrs:
             Attrs = ['_Handle']
         return '<%s.%s with %s>' % (self.__class__.__module__, self.__class__.__name__,
             ', '.join('%s=%s' % (name, repr(getattr(self, name))) for name in Attrs))
-        
+
     def _MakeOwner(self):
         """Prepares the object for use as an owner for other cached objects.
         """
@@ -567,7 +566,7 @@ class Cached(object):
     @staticmethod
     def _CreateOwner(Object):
         """Prepares any object for use as an owner for cached objects.
-        
+
         :Parameters:
           Object
             Object that should be turned into a cached objects owner.
@@ -579,7 +578,7 @@ class CachedCollection(object):
     """
     """
     _CachedType = Cached
-    
+
     def __init__(self, Owner, Handles=[], Items=[]):
         self._Owner = Owner
         self._Handles = list(map(self._CachedType._ValidateHandle, Handles))
@@ -591,7 +590,7 @@ class CachedCollection(object):
             raise TypeError('expected %s instance' % repr(self._CachedType))
         if self._Owner is not Item._Owner:
             raise TypeError('expected %s owned item' % repr(self._Owner))
-        
+
     def _AssertCollection(self, Col):
         if not isinstance(Col, self.__class__):
             raise TypeError('expected %s instance' % repr(self.__class__))
@@ -650,7 +649,7 @@ class CachedCollection(object):
     def __imul__(self, Times):
         self._Handles *= Times
         return self
-        
+
     def __copy__(self):
         obj = self.__class__(self._Owner)
         obj._Handles = self._Handles[:]
