@@ -17,7 +17,7 @@ from . import enums
 
 if False:
     from . import lang
-    
+
 
 class Conversion(object):
     """Allows conversion between constants and text. Access using `skype.Skype.Convert`.
@@ -511,9 +511,10 @@ class Conversion(object):
 
     def _SetLanguage(self, Language):
         try:
-            self._Module = __import__('lang.%s' % Language, globals(), locals(), ['lang'])
+            self._Module = __import__('Skype4Py.lang.%s' % Language, globals(), locals(), ['Skype4Py.lang'])
             self._Language = str(Language)
-        except ImportError:
+        except ImportError as e:
+            print(e)
             raise ValueError('Unknown language: %s' % Language)
 
     Language = property(_GetLanguage, _SetLanguage,
