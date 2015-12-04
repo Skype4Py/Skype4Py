@@ -45,7 +45,8 @@ else:
     import dbus.glib
     import dbus.service
     from dbus.mainloop.glib import DBusGMainLoop
-    import gobject
+    from gi.repository import GLib
+    from gi.repository import GObject as gobject
 
 
 class SkypeNotify(dbus.service.Object):
@@ -89,7 +90,7 @@ class SkypeAPI(SkypeAPIBase):
             warnings.simplefilter('default')
         
         if self.run_main_loop:
-            self.mainloop = gobject.MainLoop()
+            self.mainloop = GLib.MainLoop()
 
     def run(self):
         self.logger.info('thread started')
