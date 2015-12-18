@@ -174,6 +174,25 @@ or::
 
 depending on your configuration before running Sevabot.
 
+New-style 'cloud' chats don't work - must use old-type 'p2p' chats
+------------------------------------------------------
+
+The default chats/groups created by current Skype versions can't be interacted with by Skype4Py. You'll get something like::
+
+    SkypeError: [Errno 105] Invalid chat name
+
+You can check group type with /get name in the chat.
+
+new cloud-type gives e.g.::
+
+    name=19:ebcb1a426736467d9c38332b131ca675@thread.skype
+
+old p2p-type gives e.g.::
+
+    name=#bob030/$bernie.somethinge;dab22bf9c767e33)
+
+The workaround is to use /createmoderatedchat in any skype window to create a p2p-type chat which will work fine. More info at https://github.com/awahlig/skype4py/issues/34; thanks to @adampiskorski and @Reiner030 for the key info.
+
 Running unit tests
 ====================
 
