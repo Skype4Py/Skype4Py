@@ -134,7 +134,7 @@ commands = {'build_doc': build_doc,
 
 desc = open("README.rst").read() + "\n" + open("CHANGES.rst").read()
 
-system_specific_deps = {
+system_specific_requires = {
         'posix': ['dbus', 'gobject'],
         }
 
