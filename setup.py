@@ -134,6 +134,10 @@ commands = {'build_doc': build_doc,
 
 desc = open("README.rst").read() + "\n" + open("CHANGES.rst").read()
 
+system_specific_requires = {
+        'posix': ['dbus', 'gobject'],
+        }
+
 # start the distutils setup
 setup(name='Skype4Py',
       version=VERSION,
@@ -148,5 +152,6 @@ setup(name='Skype4Py',
       packages=['Skype4Py', 'Skype4Py.api', 'Skype4Py.lang'],
       provides=['Skype4Py'],
       install_requires=['setuptools'],
+      requires=system_specific_requires.get(os.name, []),
       zip_safe=True,
       cmdclass=commands)
