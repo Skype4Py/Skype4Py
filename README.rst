@@ -88,6 +88,22 @@ contacts from the contacts list:
    for user in skype.Friends:
        print '    ', user.FullName
 
+Sending Message
+------------------
+
+This short example shows how to send a message to a user. Credit goes to @amazpyel
+
+```python
+import Skype4Py
+import sys
+
+skype = Skype4Py.Skype()
+skype.Attach()
+user = sys.argv[1]
+message = ' '.join(sys.argv[2:])
+skype.SendMessage(user, message)
+```
+
 Note on the naming convention
 --------------------------------
 
