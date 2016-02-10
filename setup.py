@@ -108,7 +108,7 @@ class build_doc(Command):
             finally:
                 sys.argv[1:] = old_argv
 
-            print 'zipping the documentation'
+            print ('zipping the documentation')
             import zipfile
             if self.pdf:
                 doctype = 'pdf'
