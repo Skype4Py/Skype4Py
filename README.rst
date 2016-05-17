@@ -210,6 +210,13 @@ old p2p-type gives e.g.::
 
 The workaround is to use /createmoderatedchat in any skype window to create a p2p-type chat which will work fine. More info at https://github.com/awahlig/skype4py/issues/34; thanks to @adampiskorski and @Reiner030 for the key info.
 
+Problems connecting to Skype on Windows
+---------------------------------------
+
+MS might have removed support for Skype4Py on the windows version. Install an older, or use linux.
+
+If you want to create a bot you can use: https://www.skype.com/en/developer/ Skype bot preview developer program.
+
 Running unit tests
 ====================
 
