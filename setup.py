@@ -132,7 +132,10 @@ class build_doc(Command):
 commands = {'build_doc': build_doc,
             'install_lib': install_lib}
 
-desc = open("README.rst").read() + "\n" + open("CHANGES.rst").read()
+desc = open('README.rst', 'rb').read()
+desc += b'\n'
+desc += open('CHANGES.rst', 'rb').read()
+desc = desc.decode('utf-8')
 
 # start the distutils setup
 setup(name='Skype4Py',
