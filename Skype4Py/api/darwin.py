@@ -105,7 +105,7 @@ class CFString(CFType):
         if coref.CFStringGetBytes(self, 0, i, 0x08000100, 0, False, None, 0, byref(size)) > 0:
             buf = create_string_buffer(size.value)
             coref.CFStringGetBytes(self, 0, i, 0x08000100, 0, False, buf, size, None)
-            return buf.value
+            return buf.value.decode("utf-8")
         else:
             raise UnicodeError('CFStringGetBytes() failed')
 
